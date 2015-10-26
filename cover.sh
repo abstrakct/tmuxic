@@ -13,11 +13,13 @@ while :; do
 
     # Check for coverart in FLAC metadata first
 
-    METADATA_COVER=$(metaflac --list $MUSIC_DIR/"$CURRENT_FILE" | grep "Cover (front)")
+    if [[ $CURRENT_FILE =~ "*.flac" ]]; then
+        METADATA_COVER=$(metaflac --list $MUSIC_DIR/"$CURRENT_FILE" | grep "Cover (front)")
 
-    if [[ -n $METADATA_COVER ]]; then
-        FILENAME="/tmp/tmuxic-front-cover"
-        metaflac --export-picture-to=$FILENAME $MUSIC_DIR/"$CURRENT_FILE"
+        if [[ -n $METADATA_COVER ]]; then
+            FILENAME="/tmp/tmuxic-front-cover"
+            metaflac --export-picture-to=$FILENAME $MUSIC_DIR/"$CURRENT_FILE"
+        fi
     fi
 
     if [[ -z $FILENAME ]]; then
