@@ -11,11 +11,16 @@ while :; do
     CURRENT_FILE=$($MPC current -f "%file%")
     CURRENT_DIR=$(dirname "$CURRENT_FILE")
 
+    # Check for coverart in FLAC metadata first
+
     if [[ $CURRENT_FILE =~ "*.flac" ]]; then
         METADATA_COVER=$(metaflac --list $MUSIC_DIR/"$CURRENT_FILE" | grep "Cover (back)")
+
         if [[ -n $METADATA_COVER ]]; then
             FILENAME="/tmp/tmuxic-back-cover"
             metaflac --export-picture-to=$FILENAME $MUSIC_DIR/"$CURRENT_FILE"
+        elif [[ -z $METADATA_COVER ]]; then 
+            FILENAME=""
         fi
     fi
 
