@@ -1,13 +1,13 @@
 #!/bin/bash
-MPC="mpc -p 6660"
+MPC="mpc"
 MUSIC_DIR="/TheVault/.mpd/library"
-FILENAME=""
 
-width=370
-height=361
+width=446
+height=480
 
 
 while :; do
+    FILENAME=""
     CURRENT_FILE=$($MPC current -f "%file%")
     CURRENT_DIR=$(dirname "$CURRENT_FILE")
 
@@ -36,10 +36,10 @@ while :; do
 #    fi
 
     if [[ -z $FILENAME ]]; then
-        FILENAME="/home/rolf/pictures/everything-is-shit-mindre.png"
+        FILENAME="/home/rolf/pictures/Grateful Dead/gd.jpg"
     fi
 
-    w3m_command="0;1;375;0;$width;$height;;;;;""$FILENAME""\n4;\n3;"
+    w3m_command="0;1;452;0;$width;$height;;;;;""$FILENAME""\n4;\n3;"
     echo -e $w3m_command | /usr/lib/w3m/w3mimgdisplay
 
     $MPC idle player update
